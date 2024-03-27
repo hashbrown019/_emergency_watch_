@@ -68,6 +68,7 @@ def clear():
 				shutil.rmtree(file_path)
 		except Exception as e:
 			print('Failed to delete %s. Reason: %s' % (file_path, e))
+	return redirect("/emeregency/dashboard")
 
 
 @app.route("/login/<pass_>",methods=["POST","GET"])
