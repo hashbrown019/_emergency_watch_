@@ -15,8 +15,8 @@
 	.hh{
 
 			background: 
-				linear-gradient(rgba(0, 0, 0, 1),
-				rgba(100, 100, 100, 0.55)),
+				linear-gradient(rgba(225, 225, 225, 0.99),
+				rgba(225, 225, 225, 0.99)),
 				url('../static/img/bg.jpg');
 			background-position: center;
 			background-size: cover;
@@ -25,14 +25,31 @@
 	</style>
 	<body>
 
-		<div class="bgimg hh x-display-container x-text-white">
-			<div class="x-display-middle gr_body x-padding x-round-xxlarge">
-				<strong class="x-xxlarge">Emergency Watch</strong><br>
-				<span class="x-small">By Caraga State University</span>
-			</div>
-			<div class="x-display-topleft x-container x-xlarge">
-				<p><button onclick="admin()" class="x-button x-round-xxlarge x-orange">Admin</button></p>
-				<p><button onclick="download_login_start()" class="x-button x-round-xxlarge x-orange">Download</button></p>
+		<div class="bgimg hh x-display-container">
+			<div class="x-display-middle x-padding x-round-xxlarge">
+				<div class="x-container">
+					<div class="x-col l6 m6 x-padding-large x-right-align">
+						<b class="">
+							Scan QR to get the app
+						</b><br>
+						<img src="../static/img/qr.png" class="x-img" style="width:70%"><br>
+						<a href="https://rescuemenow.pythonanywhere.com//dl/app-debug.apk" target="_blank">
+							<b class="x-large x-text-blue x-hover-blue">Or Download me now by clicking here</b>
+						</a>
+					</div>
+					<div class="x-col l6 m6 x-padding-large x-leftbar">
+						<img src="../static/img/splash.png" class="x-img" style="width:50%"><br>
+						<strong class="x-xxlarge">Rescue me Now</strong><br>
+						<span class="x-small">By EN and TS</span>
+						<hr>
+						<div class="x-text-grey x-padding">
+							An app that will keep you safe by<br>
+							tracking your location when<br>
+							you are in trouble
+						</div><br>
+						<b class="x-text-blue x-padding x-hover-green" onclick="admin()">Go to Admin <span class="fa fa-arrow-right"></span> </b>
+					</div>
+				</div>
 			</div>
 			<div class="x-display-bottomleft x-container _x-text-black">
 				<p class="x-xlarge">monday - friday 10-23 | saturday 14-02</p>
