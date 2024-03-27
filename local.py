@@ -13,6 +13,7 @@ def _init_config_():
 	c.IS_ON_SERVER = False
 	c.IP_address = c.LOCAL_IP
 	c.JSON_PATH = "assets/response/"
+	c.LOGIN_PATH = "assets/login/"
 
 # ===========================================================================
 print(" * LOCAL Launch")

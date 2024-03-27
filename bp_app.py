@@ -15,7 +15,6 @@ rapid_mysql = mysql(*c.DB_CRED)
 
 # JSON_PATH = "assets/response/devices.json"
 # app = Flask(__name__)
-
 @app.route("/emeregency")
 @app.route("/emeregency/dashboard")
 def dashboard():
@@ -45,11 +44,9 @@ def set_users(name):
 	user = {}
 	for key in request.form:
 		user[key] = request.form[key]
-
 	_file = open(c.JSON_PATH+name,"w")
 	_data = _file.write(json.dumps(user))
 	_file.close()
-
 	return "DONE"
 
 @app.route("/dl/<file_>",methods=["POST","GET"])
@@ -71,7 +68,37 @@ def clear():
 				shutil.rmtree(file_path)
 		except Exception as e:
 			print('Failed to delete %s. Reason: %s' % (file_path, e))
-	return redirect("/emeregency/dashboard")
+
+
+@app.route("/login/<pass_>",methods=["POST","GET"])
+def login(pass_):
+	folder = c.LOGIN_PATH
+	try:
+		open(folder+pass_,"r")
+		return redirect("/emeregency/dashboard")
+	except Exception as e:
+		return redirect("/home")
+		# raise e
+
+
+@app.route("/ch_pass/<pass_>",methods=["POST","GET"])
+def ch_pass(pass_):
+	folder = c.LOGIN_PATH
+	for filename in os.listdir(folder):
+		file_path = os.path.join(folder, filename)
+		try:
+			if os.path.isfile(file_path) or os.path.islink(file_path):
+				os.unlink(file_path)
+			elif os.path.isdir(file_path):
+				shutil.rmtree(file_path)
+		except Exception as e:
+			print('Failed to delete %s. Reason: %s' % (file_path, e))
+		# raise e
+	f = open(folder+pass_,"w")
+	f.close()
+
+	return redirect("/home")
+	
 
 # ======================================
 _data_struct = [

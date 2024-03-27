@@ -13,6 +13,8 @@ def _init_config_():
 	c.IS_ON_SERVER = False
 	c.IP_address = c.LOCAL_IP
 	c.JSON_PATH = "/home/RescueMeNow/_emergency_watch_/assets/response/"
+	c.LOGIN_PATH = "/home/RescueMeNow/_emergency_watch_/assets/login/"
+
 
 # ===========================================================================
 print(" * LOCAL Launch")

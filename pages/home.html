@@ -31,7 +31,7 @@
 				<span class="x-small">By Caraga State University</span>
 			</div>
 			<div class="x-display-topleft x-container x-xlarge">
-				<p><button onclick="goto('/emeregency/dashboard')" class="x-button x-round-xxlarge x-orange">Admin</button></p>
+				<p><button onclick="admin()" class="x-button x-round-xxlarge x-orange">Admin</button></p>
 				<p><button onclick="download_login_start()" class="x-button x-round-xxlarge x-orange">Download</button></p>
 			</div>
 			<div class="x-display-bottomleft x-container _x-text-black">
@@ -70,6 +70,20 @@
 				a.target= '_blank';
 				a.href= '/dl/app-debug.apk';
 				a.click();
+			}
+
+			function admin(){
+				var password_dialog = $dialog({
+					title : "Admin Panel",
+					subtitle : "You must enter the admin password in order to continue",
+					content : (`
+						<input id="password" type="password" class="x-input x-border" placeholder="Admin Password">
+					`),
+					buttons : ["Login"],
+					buttons_actions : [function(){
+						goto('/login/'+$ID("password").value)
+					}]
+				}).show()
 			}
 
 		</script>

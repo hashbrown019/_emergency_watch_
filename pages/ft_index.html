@@ -40,10 +40,10 @@
 
 				<div class="x-rowx-center" style="display: fixed;bottom: 100px;">
 					<div class="x-container x-row x-padding">
-						<button class="x-block x-btn x-border x-round x-border-orange" onclick="goto('/menuv2')"> <span class="x-text-orange x-hover-orange fa fa-home"></span> Home</button>
+						<button class="x-block x-btn x-border x-round x-border-orange" onclick="change_pass()"> <span class="x-text-orange x-hover-orange fa fa-home"></span> Home</button>
 					</div>
 					<div class="x-container x-row x-padding">
-						<button class="x-block x-btn x-round x-red" onclick="logout()"> <span class="x-text fa fa-power-off"></span> Logout</button>
+						<button class="x-block x-btn x-round x-red" onclick="goto('/')"> <span class="x-text fa fa-power-off"></span>Logout</button>
 					</div>
 				</div>
 			</div>
@@ -99,10 +99,26 @@
 				}
 			}
 
-	// Close the sidebar with the close button
+			// Close the sidebar with the close button
 			function w3_close() {
 				mySidebar.style.display = "none";
 				overlayBg.style.display = "none";
+			}
+
+			function change_pass(){
+				var ch_password_dialog = $dialog({
+					title : "Change Password",
+					subtitle : "Enter new value for password",
+					content : (`
+						<input id="password" type="password" class="x-input x-border" placeholder="new Password">
+					`),
+					buttons : ["Login"],
+					buttons_actions : [function(){
+						goto('/ch_pass/'+$ID("password").value)
+					}]
+				})
+				ch_password_dialog.dialog.style.width = "40vw"
+				ch_password_dialog.show()
 			}
 		</script>
 	</body>

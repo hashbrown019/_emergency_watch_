@@ -1,10 +1,23 @@
 
 <div id="card_holder">
 </div>
-
+<audio id="myAudio">
+	<source src="../static/sounds/alert.mp3" type="audio/mpeg">
+</audio>
+<button id="button_audio" class="x-orange x-btn" onclick="_playAudio()">
+	Refresh
+</button>
 <script type="text/javascript">
-	$onload(
-		function(){
+	var x = document.getElementById("myAudio"); 
+
+	function playAudio(){x.play();} 
+	function _playAudio(){x.play();x.pause();get_all()} 
+
+	function pauseAudio(){x.pause();} 
+
+
+	// $onload(
+		function get_all(){
 			window.setInterval(function(){
 				$send({
 					action : "/emeregency/get_all_status",
@@ -18,6 +31,11 @@
 							var _status = ["blue","x-hide"]
 							if(user['status'].split("::")[0]=="danger"){
 								_status = ["red","x-show"]
+								playAudio()
+								// $ID("button_audio").click()
+							}
+							else{
+								pauseAudio()
 							}
 							_card_holder += (`
 								<div class="x-row x-container" style="margin-bottom:5px;">
@@ -52,7 +70,7 @@
 						$ID("card_holder").innerHTML = _card_holder
 					}
 				})
-			},500)
+			},1200)
 		}
-	)
+	// )
 </script>
