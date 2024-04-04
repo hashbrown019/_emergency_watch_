@@ -40,6 +40,16 @@
 
 				<div class="x-rowx-center" style="display: fixed;bottom: 100px;">
 					<div class="x-container x-row x-padding">
+						<button class="x-block x-btn x-border x-round x-border-orange" onclick="change_pass()"> <span class="x-text-orange x-hover-orange fa fa-key"></span> Refresh</button>
+						<button id="button_audio" class="x-orange x-btn" onclick="_playAudio()">
+							Refresh
+						</button>
+					</div>
+					<div class="x-container x-row x-padding">
+						<button class="x-block x-btn x-border x-round x-border-orange" onclick="goto('/clear')"> <span class="x-text-orange x-hover-orange fa fa-key"></span> Clear Logs</button>
+					</div>
+					<hr>
+					<div class="x-container x-row x-padding">
 						<button class="x-block x-btn x-border x-round x-border-orange" onclick="change_pass()"> <span class="x-text-orange x-hover-orange fa fa-key"></span> Change Password</button>
 					</div>
 					<div class="x-container x-row x-padding">
@@ -60,11 +70,6 @@
 			<header class="x-container" style="padding-top:22px">
 				<h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
 			</header>
-			<div class="x-container">
-				<a href="/clear" class="x-text-red">
-					<b>clear logs</b>
-				</a>
-			</div>
 
 			<div class="x-container x-row">
 				<div class="x-col l8 x-margin-bottom">
