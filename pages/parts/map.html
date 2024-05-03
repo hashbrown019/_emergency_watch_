@@ -16,6 +16,7 @@
 
 
 	function set_danger_area(latlong) {
+		open_tab('TAB_MAP')
 		latlong = latlong.split(",")
 		var circle = L.circle(latlong, {
 			color: 'red',

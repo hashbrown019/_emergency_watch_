@@ -16,15 +16,16 @@
 		<!-- Sidebar/menu -->
 		<div class="x-container x-padding" style="">
 			<br><br><br>
-			<div class="x-sidebar x-collapse x-teal x-animate-left" style="height:70vh;z-index:3;width:300px;border-radius: 50px 50px 50px 50px;" id="mySidebar">
+			<!-- <div class="x-sidebar x-collapse x-teal x-animate-left" style="height:70vh;z-index:3;width:300px;border-radius: 50px 50px 50px 50px;" id="mySidebar"> -->
+			<div class="x-sidebar x-collapse x-teal x-animate-left" style="height:70vh;z-index:3;width:300px;" id="mySidebar">
 				<div class="x-container x-padding x-left x-rapid-macha-dark"  onclick="x_open()" style="width:300px;">
 					<div class="x-col l5">
-						<img src="../static/img/avatar2.png" class="x-circle x-margin-right" style="width:100%">
+						<img src="../static/img/splash.png" class="x-img" style="width:100%">
 					</div>
 					<div class="x-col l7 x-container">
 						<p style="line-height: 1px;">
-							<span class="x-text-shrink "><strong>Title</strong></span><br>
-							<span class="x-text-shrink x-tiny">Description</span>
+							<span class="x-text-shrink "><strong>RescueMeNow</strong></span><br>
+							<span class="x-text-shrink x-tiny">Admin Panel</span>
 						</p>
 					</div>
 				</div>
@@ -38,22 +39,22 @@
 					<a href="#" class="x-bar-item x-button x-padding x-hover-blue"><i class="fa fa-eye fa-fw"></i>&nbsp; Reports</a> -->
 				</div>
 
-				<div class="x-rowx-center" style="display: fixed;bottom: 100px;">
+				<div class="x-row x-center" style="display: fixed;bottom: 100px;">
 					<div class="x-container x-row x-padding">
 						<!-- <button class="x-block x-btn x-border x-round x-border-orange" onclick="change_pass()"> <span class="x-text-orange x-hover-orange fa fa-key"></span> Refresh</button> -->
-						<button id="button_audio" class="x-block x-green x-btn" onclick="_playAudio()">
-							Refresh
+						<button id="button_audio" class="x-left-align x-block x-btn" onclick="_playAudio()">
+							<span class="fa fa-refresh"></span> Refresh
 						</button>
 					</div>
 					<div class="x-container x-row x-padding">
-						<button class="x-block x-btn x-border x-round x-border-orange" onclick="goto('/clear')"> <span class="x-text-orange x-hover-orange fa fa-key"></span> Clear Logs</button>
+						<button class="x-left-align x-block x-btn" onclick="goto('/clear')"> <span class="x-text-orange x-hover-orange fa fa-warning"></span> Clear Logs</button>
 					</div>
 					<hr>
 					<div class="x-container x-row x-padding">
-						<button class="x-block x-btn x-blue" onclick="change_pass()"> <span class="x-text-orange x-hover-orange fa fa-key"></span> Change Password</button>
+						<button class="x-left-align x-block x-btn" onclick="change_pass()"> <span class="x-text-orange x-hover-orange fa fa-key"></span> Change Password</button>
 					</div>
-					<div class="x-container x-row x-padding">
-						<button class="x-block x-btn x-round x-red" onclick="goto('/')"> <span class="x-text fa fa-power-off"></span> Logout</button>
+					<div class="x-container x-row x-padding x-display-bottom">
+						<button class="x-left-align x-block x-btn x-round x-red" onclick="goto('/')"> <span class="x-text fa fa-power-off"></span> Logout</button>
 					</div>
 				</div>
 			</div>
@@ -64,7 +65,7 @@
 		<div class="x-overlay x-hide-large x-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 		<!-- !PAGE CONTENT! -->
-		<div class="x-main x-container x-padding" style="margin-left:300px;margin-top:43px;">
+		<div class="x-main x-container x-padding" style="margin-left:300px;margin-top:3px;">
 
 			<!-- Header -->
 			<header class="x-container" style="padding-top:22px">
@@ -75,8 +76,30 @@
 				<div class="x-col l8 x-margin-bottom">
 					{% include 'parts/table_main_entries.html'%}
 				</div>
-				<div class="x-col l4 x-margin-bottom">
-					{% include 'parts/map.html'%}
+				<div class="x-col l4 x-margin-bottom" id="__map">
+					<div class="x-bar x-black">
+						<button class="x-bar-item x-button" onclick="open_tab('TAB_MAP')">Map</button>
+						<button class="x-bar-item x-button" onclick="open_tab('TAB_LOGS')">Logs</button>
+						<button class="x-bar-item x-button" onclick="open_tab('TAB_DISPATCH')">Dispatch</button>
+					</div>
+
+					<div id="TAB_MAP" class="x-container TABS">
+						<h2>Map Preview</h2>
+
+						{% include 'parts/map.html'%}
+					</div>
+
+					<div id="TAB_LOGS" class="x-container TABS" style="display:none">
+						<h2>Logs</h2>
+						<div class="x-container x-tiny" id="LOGS" style="overflow-y: scroll;height: 70vh;">
+							
+						</div>
+					</div>
+					<div id="TAB_DISPATCH" class="x-container TABS" style="display:none">
+						<h2>Dispatch</h2>
+						<div class="x-container" id="DISPATCH" style="overflow-y: scroll;height: 70vh;">
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="x-container x-row">
@@ -86,6 +109,49 @@
 		</div>
 
 		<script>
+
+			function respond_status(elem,stat){
+				if(stat=="F"){
+					elem.parentNode.innerHTML = "<b class='x-text-red'>False Alarm: Rescue was aborted</b>";
+					write_log(`<span class="x-text-red">Rescue was aborted in [${user['latlong']}]</span>`)
+				}
+				else{
+					elem.parentNode.innerHTML = "<b class='x-text-green'>Done Rescue</b>";
+					write_log(`<span class="x-text-green">Rescue Done[${user['latlong']}]</span>`)
+				}
+			}
+
+			function open_tab(cityName) {
+				var i;
+				var x = document.getElementsByClassName("TABS");
+				for (i = 0; i < x.length; i++) {
+					x[i].style.display = "none";  
+				}
+				document.getElementById(cityName).style.display = "block";  
+			}
+
+			function set_resp(latlong,namae){
+				println("sending")
+				open_tab('TAB_DISPATCH')
+				$ID("DISPATCH").innerHTML += (`
+					<div class="x-container">
+						<div class="x-container x-border">
+							<span class="x-text-orange">Rescue on the way</span><br>
+							Dispatch sent to [${namae}] <span class="x-text-blue" onclick="set_danger_area('${latlong}')">[${latlong}]</span><br>
+							Status:<br>
+							<div>
+								<button class="x-btn x-text-green x-border " onclick="respond_status(this,'R')">
+									Rescued
+								</button>
+								<button class="x-btn x-text-green x-border " onclick="respond_status(this,'F')">
+									False Alarm
+								</button>
+							</div>
+						</div>
+					</div>
+				`)
+
+			}
 
 			// Get the Sidebar
 			var mySidebar = document.getElementById("mySidebar");
